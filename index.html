@@ -1,0 +1,4668 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>AUTENRA — AI-автоматизация бизнес-процессов</title>
+
+  <meta
+    name="description"
+    content="Autenra создаёт AI-системы, которые сокращают ручную работу сотрудников и автоматизируют внутренние бизнес-процессы."
+  >
+
+  <meta property="og:title" content="AUTENRA — AI Automation for Business">
+  <meta
+    property="og:description"
+    content="Автоматизация, построенная вокруг вашего бизнеса."
+  >
+
+  <style>
+    :root {
+      --bg: #090a0c;
+      --bg-2: #0d0f12;
+
+      --surface: #111317;
+      --surface-2: #15181d;
+      --surface-3: #1a1d22;
+
+      --text: #f1efe9;
+      --muted: #999ba1;
+      --muted-2: #676b72;
+
+      --line: rgba(255,255,255,.09);
+      --line-strong: rgba(255,255,255,.16);
+
+      --accent: #c9b58d;
+      --accent-bright: #e1cfaa;
+      --accent-soft: rgba(201,181,141,.10);
+
+      --telegram: #55ace0;
+      --success: #79c995;
+
+      --container: 1320px;
+
+      --radius-xl: 38px;
+      --radius-lg: 27px;
+      --radius-md: 18px;
+
+      --shadow:
+        0 32px 100px rgba(0,0,0,.36);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        "Segoe UI Variable Text",
+        "Segoe UI",
+        Inter,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+
+      background:
+        radial-gradient(
+          circle at 78% 2%,
+          rgba(201,181,141,.065),
+          transparent 26rem
+        ),
+        radial-gradient(
+          circle at 7% 36%,
+          rgba(90,115,155,.035),
+          transparent 31rem
+        ),
+        var(--bg);
+
+      line-height: 1.55;
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+
+      z-index: -1;
+
+      pointer-events: none;
+
+      opacity: .025;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.45) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.45) 1px,
+          transparent 1px
+        );
+
+      background-size: 84px 84px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 72%
+        );
+    }
+
+    ::selection {
+      background: rgba(201,181,141,.28);
+      color: #fff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .container {
+      width:
+        min(
+          var(--container),
+          calc(100% - 64px)
+        );
+
+      margin-inline: auto;
+    }
+
+    /* =====================================================
+       NAV
+    ===================================================== */
+
+    .nav {
+      position: sticky;
+      top: 0;
+
+      z-index: 1000;
+
+      border-bottom:
+        1px solid rgba(255,255,255,.055);
+
+      background:
+        rgba(9,10,12,.77);
+
+      backdrop-filter:
+        blur(24px)
+        saturate(125%);
+    }
+
+    .nav-inner {
+      height: 78px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 12px;
+
+      font-size: 15px;
+      font-weight: 700;
+
+      letter-spacing: .22em;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+
+      position: relative;
+
+      border:
+        1px solid
+        rgba(201,181,141,.55);
+
+      border-radius: 50%;
+    }
+
+    .brand-mark::before {
+      content: "";
+
+      width: 7px;
+      height: 7px;
+
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      transform:
+        translate(-50%,-50%);
+
+      border-radius: 50%;
+
+      background: var(--accent);
+
+      box-shadow:
+        0 0 22px
+        rgba(201,181,141,.7);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+
+      gap: 32px;
+
+      color: #a5a6aa;
+
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-contact {
+      min-height: 44px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding: 0 18px;
+
+      border:
+        1px solid
+        var(--line-strong);
+
+      border-radius: 999px;
+
+      color: white !important;
+
+      transition:
+        border-color .2s ease,
+        background .2s ease;
+    }
+
+    .nav-contact:hover {
+      border-color:
+        rgba(201,181,141,.45);
+
+      background:
+        var(--accent-soft);
+    }
+
+    /* =====================================================
+       COMMON
+    ===================================================== */
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-border {
+      border-top:
+        1px solid
+        rgba(255,255,255,.065);
+    }
+
+    .eyebrow {
+      margin-bottom: 27px;
+
+      color: var(--accent);
+
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: .22em;
+
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+
+      font-weight: 500;
+
+      letter-spacing: -.045em;
+
+      line-height: 1;
+    }
+
+    .section-head {
+      display: grid;
+
+      grid-template-columns:
+        220px 1fr;
+
+      gap: 60px;
+
+      align-items: start;
+
+      margin-bottom: 56px;
+    }
+
+    .section-label {
+      padding-top: 8px;
+
+      color: var(--muted-2);
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: .19em;
+
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 980px;
+
+      font-size:
+        clamp(
+          42px,
+          4.55vw,
+          66px
+        );
+
+      line-height: 1.02;
+    }
+
+    .section-description {
+      max-width: 760px;
+
+      margin: 25px 0 0;
+
+      color: var(--muted);
+
+      font-size: 16px;
+
+      line-height: 1.72;
+    }
+
+    .button {
+      min-height: 52px;
+
+      padding: 0 23px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: 999px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .button.primary {
+      color: #11100e;
+
+      border-color: var(--accent);
+
+      background: var(--accent);
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 8px 25px rgba(201,181,141,.055);
+    }
+
+    .button.primary:hover {
+      transform: translateY(-2px);
+
+      background:
+        var(--accent-bright);
+
+      border-color:
+        var(--accent-bright);
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.25),
+        0 14px 34px rgba(201,181,141,.09);
+    }
+
+    .button.ghost {
+      color: #d4d4d2;
+
+      background:
+        rgba(255,255,255,.025);
+    }
+
+    .button.ghost:hover {
+      border-color:
+        var(--line-strong);
+
+      background:
+        rgba(255,255,255,.05);
+    }
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .hero {
+      position: relative;
+
+      overflow: hidden;
+
+      padding:
+        92px 0
+        88px;
+    }
+
+    .hero::after {
+      content: "";
+
+      width: 650px;
+      height: 650px;
+
+      position: absolute;
+
+      top: -320px;
+      right: -180px;
+
+      pointer-events: none;
+
+      border-radius: 50%;
+
+      background:
+        rgba(201,181,141,.055);
+
+      filter: blur(130px);
+    }
+
+    .hero-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0,1.12fr)
+        minmax(430px,.68fr);
+
+      gap: 72px;
+
+      align-items: center;
+    }
+
+    .hero h1 {
+      max-width: 920px;
+
+      font-size:
+        clamp(
+          56px,
+          5.55vw,
+          84px
+        );
+
+      line-height: .98;
+    }
+
+    .hero-copy-main {
+      max-width: 690px;
+
+      margin: 28px 0 0;
+
+      color: #c2c2c0;
+
+      font-size: 19px;
+      font-weight: 450;
+
+      line-height: 1.65;
+    }
+
+    .hero-copy-secondary {
+      max-width: 660px;
+
+      margin: 15px 0 0;
+
+      color: #8f9298;
+
+      font-size: 15px;
+
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      margin-top: 30px;
+
+      display: flex;
+      align-items: center;
+
+      flex-wrap: wrap;
+
+      gap: 16px;
+    }
+
+    /* =====================================================
+       HERO SYSTEM VISUAL
+    ===================================================== */
+
+    .system-card {
+      position: relative;
+
+      min-height: 430px;
+
+      padding: 31px;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        rgba(255,255,255,.11);
+
+      border-radius: 38px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.052),
+          rgba(255,255,255,.016)
+        );
+
+      box-shadow:
+        var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,.018);
+    }
+
+    .system-card::before {
+      content: "";
+
+      width: 280px;
+      height: 280px;
+
+      position: absolute;
+
+      top: -100px;
+      right: -80px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(201,181,141,.075);
+
+      filter: blur(95px);
+    }
+
+    .system-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 32px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+
+      letter-spacing: .15em;
+
+      text-transform: uppercase;
+    }
+
+    .live {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 7px;
+
+      color: #d0c8b7;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--accent);
+
+      box-shadow:
+        0 0 18px
+        rgba(201,181,141,.85);
+
+      animation:
+        pulse 2.4s infinite;
+    }
+
+    .system-flow {
+      position: relative;
+
+      min-height: 292px;
+    }
+
+    .system-line {
+      width: 1px;
+      height: 214px;
+
+      position: absolute;
+
+      left: 50%;
+      top: 48px;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(201,181,141,0),
+          rgba(201,181,141,.6),
+          rgba(201,181,141,0)
+        );
+    }
+
+    .system-line::after {
+      content: "";
+
+      width: 100%;
+      height: 45px;
+
+      position: absolute;
+
+      background: white;
+
+      box-shadow:
+        0 0 18px
+        rgba(255,255,255,.5);
+
+      animation:
+        flowLine 3s linear infinite;
+    }
+
+    .node {
+      min-width: 125px;
+
+      position: absolute;
+
+      padding: 11px 14px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.10);
+
+      border-radius: 14px;
+
+      background:
+        rgba(13,15,18,.92);
+
+      color: #a5a7ac;
+
+      font-size: 10px;
+
+      letter-spacing: .09em;
+
+      text-align: center;
+    }
+
+    .node strong {
+      display: block;
+
+      margin-top: 3px;
+
+      color: #e9e7e1;
+
+      font-size: 12px;
+
+      letter-spacing: 0;
+    }
+
+    .node.n1 {
+      top: 0;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+    }
+
+    .node.n2 {
+      top: 82px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      border-color:
+        rgba(201,181,141,.28);
+
+      background:
+        rgba(201,181,141,.07);
+    }
+
+    .node.n3 {
+      top: 175px;
+      left: 5%;
+    }
+
+    .node.n4 {
+      top: 175px;
+      right: 5%;
+    }
+
+    .node.n5 {
+      bottom: 0;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+    }
+
+    .connector-left,
+    .connector-right {
+      width: 34%;
+      height: 1px;
+
+      position: absolute;
+
+      top: 152px;
+
+      background:
+        rgba(201,181,141,.28);
+    }
+
+    .connector-left {
+      left: 16%;
+    }
+
+    .connector-right {
+      right: 16%;
+    }
+
+    /* =====================================================
+       PROBLEM
+    ===================================================== */
+
+    .problem-intro {
+      max-width: 1050px;
+
+      font-size:
+        clamp(
+          38px,
+          4vw,
+          58px
+        );
+
+      letter-spacing: -.045em;
+
+      line-height: 1.08;
+    }
+
+    .problem-intro span {
+      color: #76797e;
+    }
+
+    .problem-grid {
+      margin-top: 55px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4,1fr);
+
+      gap: 14px;
+    }
+
+    .problem-card {
+      min-height: 250px;
+
+      padding: 28px;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255,255,255,.022);
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.018);
+
+      transition:
+        transform .25s ease,
+        border-color .25s ease,
+        background .25s ease;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-3px);
+
+      border-color:
+        var(--line-strong);
+
+      background:
+        rgba(255,255,255,.038);
+    }
+
+    .problem-number {
+      color: var(--accent);
+
+      font-size: 10px;
+
+      letter-spacing: .18em;
+    }
+
+    .problem-card h3 {
+      margin-top: 58px;
+
+      font-size: 21px;
+
+      line-height: 1.15;
+    }
+
+    .problem-card p {
+      margin:
+        15px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.65;
+    }
+
+    .problem-conclusion {
+      max-width: 1000px;
+
+      margin-top: 48px;
+
+      color: #d6d3cb;
+
+      font-size:
+        clamp(
+          24px,
+          2.7vw,
+          38px
+        );
+
+      letter-spacing: -.025em;
+
+      line-height: 1.3;
+    }
+
+    /* =====================================================
+       RESULTS
+    ===================================================== */
+
+    .result-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr 1fr;
+
+      gap: 16px;
+    }
+
+    .result-card {
+      min-height: 290px;
+
+      position: relative;
+
+      padding: 31px;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: var(--radius-lg);
+
+      background:
+        rgba(255,255,255,.025);
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.018);
+    }
+
+    .result-index {
+      color: var(--accent);
+
+      font-size: 10px;
+
+      letter-spacing: .18em;
+    }
+
+    .result-card h3 {
+      position: absolute;
+
+      left: 31px;
+      right: 31px;
+
+      bottom: 104px;
+
+      font-size: 26px;
+
+      line-height: 1.12;
+    }
+
+    .result-card p {
+      position: absolute;
+
+      left: 31px;
+      right: 31px;
+      bottom: 30px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.65;
+    }
+
+    /* =====================================================
+       CASE
+    ===================================================== */
+
+    .case-section {
+      padding-top: 110px;
+      padding-bottom: 110px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.065);
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.065);
+
+      background:
+        radial-gradient(
+          circle at 76% 50%,
+          rgba(85,172,224,.045),
+          transparent 35rem
+        ),
+        var(--bg-2);
+    }
+
+    .case-top {
+      margin-bottom: 48px;
+
+      display: grid;
+
+      grid-template-columns:
+        .68fr 1.32fr;
+
+      gap: 65px;
+    }
+
+    .case-number {
+      color: var(--accent);
+
+      font-size: 11px;
+
+      letter-spacing: .2em;
+
+      text-transform: uppercase;
+    }
+
+    .case-title {
+      font-size:
+        clamp(
+          51px,
+          6vw,
+          88px
+        );
+
+      letter-spacing: -.055em;
+    }
+
+    .case-promise {
+      max-width: 760px;
+
+      margin: 25px 0 0;
+
+      color: #c2c3c3;
+
+      font-size: 19px;
+
+      line-height: 1.6;
+    }
+
+    .case-description {
+      max-width: 770px;
+
+      margin: 18px 0 0;
+
+      color: var(--muted);
+
+      font-size: 15px;
+
+      line-height: 1.7;
+    }
+
+    .try-label {
+      margin-top: 28px;
+
+      color: var(--accent);
+
+      font-size: 12px;
+      font-weight: 650;
+
+      letter-spacing: .09em;
+
+      text-transform: uppercase;
+    }
+
+    .demo-grid {
+      display: grid;
+
+      grid-template-columns:
+        330px minmax(0,1fr);
+
+      gap: 18px;
+    }
+
+    .demo-info {
+      padding: 28px;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: 29px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,.018)
+        );
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.018);
+    }
+
+    .demo-info h3 {
+      margin-bottom: 15px;
+
+      font-size: 22px;
+    }
+
+    .demo-info > p {
+      margin:
+        0 0 30px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.67;
+    }
+
+    .demo-feature {
+      padding: 16px 0;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.07);
+    }
+
+    .demo-feature small {
+      display: block;
+
+      margin-bottom: 4px;
+
+      color: var(--muted-2);
+    }
+
+    .demo-feature strong {
+      font-size: 13px;
+    }
+
+    .demo-integration-note {
+      margin-top: 24px;
+
+      padding: 15px;
+
+      border:
+        1px solid
+        rgba(201,181,141,.12);
+
+      border-radius: 14px;
+
+      background:
+        rgba(201,181,141,.04);
+
+      color: #a6a39c;
+
+      font-size: 11px;
+
+      line-height: 1.55;
+    }
+
+    .demo-reset {
+      width: 100%;
+      min-height: 44px;
+
+      margin-top: 18px;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.025);
+
+      color: #c6c7ca;
+
+      cursor: pointer;
+    }
+
+    .demo-reset:hover {
+      border-color:
+        var(--line-strong);
+
+      background:
+        rgba(255,255,255,.05);
+    }
+
+    /* =====================================================
+       CHAT
+    ===================================================== */
+
+    .chat-shell {
+      min-height: 660px;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        rgba(255,255,255,.11);
+
+      border-radius: 31px;
+
+      background: #111419;
+
+      box-shadow:
+        var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,.018);
+    }
+
+    .chat-head {
+      min-height: 78px;
+
+      padding: 13px 21px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 18px;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.075);
+
+      background:
+        rgba(255,255,255,.022);
+    }
+
+    .chat-profile {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #64b4df,
+          #348fc1
+        );
+
+      color: white;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .chat-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .chat-status {
+      margin-top: 2px;
+
+      color: #6cb9e5;
+
+      font-size: 11px;
+    }
+
+    .demo-badge {
+      padding: 7px 10px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.09);
+
+      border-radius: 999px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+      letter-spacing: .1em;
+
+      text-transform: uppercase;
+    }
+
+    .messages {
+      min-height: 0;
+
+      flex: 1;
+
+      padding: 28px;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 11px;
+
+      overflow-y: auto;
+
+      background:
+        radial-gradient(
+          circle at 80% 10%,
+          rgba(85,172,224,.035),
+          transparent 22rem
+        ),
+        linear-gradient(
+          180deg,
+          #101318,
+          #101216
+        );
+    }
+
+    .message {
+      max-width: 76%;
+
+      padding: 12px 15px;
+
+      border-radius: 17px;
+
+      font-size: 13px;
+
+      line-height: 1.55;
+
+      animation:
+        msg .27s ease both;
+    }
+
+    .message.bot {
+      align-self: flex-start;
+
+      border:
+        1px solid
+        rgba(255,255,255,.055);
+
+      border-bottom-left-radius: 5px;
+
+      background: #1c2026;
+
+      color: #ececef;
+    }
+
+    .message.user {
+      align-self: flex-end;
+
+      border-bottom-right-radius: 5px;
+
+      background: #89caed;
+
+      color: #0d1a22;
+    }
+
+    .message.system {
+      align-self: center;
+
+      max-width: 90%;
+
+      padding: 7px 12px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.035);
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+      letter-spacing: .04em;
+    }
+
+    .typing-bubble {
+      width: 58px;
+    }
+
+    .typing {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 4px;
+    }
+
+    .typing i {
+      width: 5px;
+      height: 5px;
+
+      display: block;
+
+      border-radius: 50%;
+
+      background: #8e9298;
+
+      animation:
+        typing 1s infinite alternate;
+    }
+
+    .typing i:nth-child(2) {
+      animation-delay: .14s;
+    }
+
+    .typing i:nth-child(3) {
+      animation-delay: .28s;
+    }
+
+    .quick-actions {
+      align-self: flex-start;
+
+      max-width: 87%;
+
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      animation:
+        msg .3s ease both;
+    }
+
+    .chat-action {
+      min-height: 38px;
+
+      padding: 8px 12px;
+
+      border:
+        1px solid
+        rgba(85,172,224,.26);
+
+      border-radius: 11px;
+
+      background:
+        rgba(85,172,224,.065);
+
+      color: #78c6f0;
+
+      font-size: 11px;
+
+      cursor: pointer;
+
+      backdrop-filter: blur(10px);
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .chat-action:hover {
+      transform: translateY(-1px);
+
+      border-color:
+        rgba(85,172,224,.42);
+
+      background:
+        rgba(85,172,224,.12);
+
+      box-shadow:
+        0 8px 24px rgba(85,172,224,.07);
+    }
+
+    .doc-card {
+      align-self: flex-start;
+
+      width:
+        min(420px,88%);
+
+      padding: 18px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.09);
+
+      border-radius: 18px;
+
+      background: #191d22;
+
+      animation:
+        msg .3s ease both;
+    }
+
+    .doc-top {
+      margin-bottom: 30px;
+
+      display: flex;
+      justify-content: space-between;
+
+      gap: 15px;
+    }
+
+    .pdf-icon {
+      width: 41px;
+      height: 48px;
+
+      display: grid;
+      place-items: center;
+
+      border:
+        1px solid
+        rgba(201,181,141,.25);
+
+      border-radius: 10px;
+
+      color: var(--accent);
+
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .doc-title {
+      margin-bottom: 5px;
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .doc-meta {
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .doc-actions {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 7px;
+    }
+
+    .analysis-card {
+      align-self: flex-start;
+
+      width:
+        min(430px,90%);
+
+      padding: 17px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      border-radius: 18px;
+
+      background: #1a1e23;
+
+      animation:
+        msg .3s ease both;
+    }
+
+    .analysis-row {
+      min-height: 38px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      align-items: center;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.055);
+
+      font-size: 11px;
+    }
+
+    .analysis-row:last-child {
+      border-bottom: 0;
+    }
+
+    .analysis-row span:first-child {
+      color: var(--muted);
+    }
+
+    .analysis-row strong {
+      text-align: right;
+    }
+
+    .success-card {
+      align-self: flex-start;
+
+      padding: 18px;
+
+      border:
+        1px solid
+        rgba(121,201,149,.20);
+
+      border-radius: 17px;
+
+      background:
+        rgba(121,201,149,.06);
+
+      animation:
+        msg .3s ease both;
+    }
+
+    .success-title {
+      margin-bottom: 10px;
+
+      color: #a7ddb9;
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .success-meta {
+      color: #a9afb0;
+
+      font-size: 11px;
+
+      line-height: 1.65;
+    }
+
+    .chat-input-wrap {
+      padding: 14px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.075);
+
+      background: #15181d;
+    }
+
+    .chat-form {
+      display: flex;
+
+      gap: 9px;
+    }
+
+    .chat-input {
+      min-width: 0;
+      min-height: 46px;
+
+      flex: 1;
+
+      padding: 0 16px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      border-radius: 999px;
+
+      outline: none;
+
+      background: #0f1115;
+
+      color: white;
+
+      font-size: 13px;
+    }
+
+    .chat-input:focus {
+      border-color:
+        rgba(85,172,224,.45);
+    }
+
+    .send {
+      width: 46px;
+      height: 46px;
+
+      flex:
+        0 0 46px;
+
+      border: 0;
+
+      border-radius: 50%;
+
+      background: var(--telegram);
+
+      color: white;
+
+      cursor: pointer;
+
+      font-size: 18px;
+    }
+
+    .demo-disclaimer {
+      padding:
+        10px 15px 0;
+
+      color: #5f636a;
+
+      font-size: 9px;
+
+      text-align: center;
+    }
+
+    /* =====================================================
+       AI OFFICE BRIDGE
+    ===================================================== */
+
+    .bridge-section {
+      padding-top: 92px;
+      padding-bottom: 92px;
+    }
+
+    .bridge {
+      display: grid;
+
+      grid-template-columns:
+        .85fr 1.15fr;
+
+      gap: 60px;
+
+      align-items: start;
+    }
+
+    .bridge h2 {
+      font-size:
+        clamp(
+          43px,
+          5vw,
+          72px
+        );
+    }
+
+    .bridge-text {
+      max-width: 690px;
+
+      margin-top: 22px;
+
+      color: #aaa9a5;
+
+      font-size: 17px;
+
+      line-height: 1.75;
+    }
+
+    .bridge-text strong {
+      color: #e1ddd3;
+    }
+
+    /* =====================================================
+       PROCESS
+    ===================================================== */
+
+    .process-list {
+      border-top:
+        1px solid
+        var(--line);
+    }
+
+    .process-row {
+      min-height: 118px;
+
+      display: grid;
+
+      grid-template-columns:
+        90px 300px 1fr;
+
+      gap: 30px;
+
+      align-items: center;
+
+      border-bottom:
+        1px solid
+        var(--line);
+    }
+
+    .process-num {
+      color: var(--accent);
+
+      font-size: 11px;
+    }
+
+    .process-name {
+      font-size: 20px;
+
+      font-weight: 500;
+    }
+
+    .process-text {
+      max-width: 650px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.65;
+    }
+
+    /* =====================================================
+       PHILOSOPHY
+    ===================================================== */
+
+    .quote {
+      max-width: 1100px;
+
+      font-size:
+        clamp(
+          38px,
+          3.75vw,
+          58px
+        );
+
+      letter-spacing: -.045em;
+
+      line-height: 1.08;
+    }
+
+    .quote span {
+      color: #777a80;
+    }
+
+    .principles {
+      margin-top: 62px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4,1fr);
+
+      gap: 14px;
+    }
+
+    .principle {
+      padding: 24px 0;
+
+      border-top:
+        1px solid
+        var(--line);
+    }
+
+    .principle small {
+      color: var(--muted-2);
+    }
+
+    .principle h3 {
+      margin:
+        48px 0 12px;
+
+      font-size: 18px;
+    }
+
+    .principle p {
+      color: var(--muted);
+
+      font-size: 12px;
+
+      line-height: 1.65;
+    }
+
+    /* =====================================================
+       DIAGNOSTIC
+    ===================================================== */
+
+    .diagnostic {
+      padding-top: 60px;
+      padding-bottom: 90px;
+    }
+
+    .diagnostic-box {
+      position: relative;
+
+      padding: 58px 64px;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: 38px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #14171b,
+          #101216
+        );
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.018);
+    }
+
+    .diagnostic-box::after {
+      content: "";
+
+      width: 430px;
+      height: 430px;
+
+      position: absolute;
+
+      top: -200px;
+      right: -130px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(201,181,141,.075);
+
+      filter: blur(90px);
+    }
+
+    .diagnostic-box h2 {
+      max-width: 920px;
+
+      position: relative;
+
+      z-index: 1;
+
+      font-size:
+        clamp(
+          45px,
+          5.2vw,
+          74px
+        );
+    }
+
+    .diagnostic-box p {
+      max-width: 720px;
+
+      position: relative;
+
+      z-index: 1;
+
+      margin:
+        27px 0 0;
+
+      color: var(--muted);
+
+      font-size: 16px;
+
+      line-height: 1.7;
+    }
+
+    .diagnostic-points {
+      max-width: 730px;
+
+      position: relative;
+
+      z-index: 1;
+
+      margin-top: 34px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 12px;
+    }
+
+    .diagnostic-point {
+      padding: 13px 15px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.07);
+
+      border-radius: 13px;
+
+      background:
+        rgba(255,255,255,.02);
+
+      color: #b6b5b1;
+
+      font-size: 12px;
+    }
+
+    .diagnostic-free {
+      position: relative;
+
+      z-index: 1;
+
+      margin-top: 27px;
+
+      color: var(--accent);
+
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    /* =====================================================
+       CONTACTS
+    ===================================================== */
+
+    #contacts {
+      padding-top: 92px;
+      padding-bottom: 92px;
+    }
+
+    .contacts-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 80px;
+    }
+
+    .contact-person {
+      font-size: 24px;
+
+      letter-spacing: -.02em;
+    }
+
+    .contact-list {
+      border-top:
+        1px solid
+        var(--line);
+    }
+
+    .contact-row {
+      min-height: 78px;
+
+      display: grid;
+
+      grid-template-columns:
+        120px 1fr;
+
+      align-items: center;
+
+      border-bottom:
+        1px solid
+        var(--line);
+    }
+
+    .contact-row span {
+      color: var(--muted-2);
+
+      font-size: 11px;
+    }
+
+    .contact-row a {
+      font-size: 14px;
+
+      transition: color .2s ease;
+    }
+
+    .contact-row a:hover {
+      color: var(--accent);
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+      padding: 38px 0;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.065);
+
+      color: var(--muted-2);
+
+      font-size: 11px;
+    }
+
+    .footer-grid {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 30px;
+    }
+
+    /* =====================================================
+       REVEAL
+    ===================================================== */
+
+    .reveal {
+      opacity: 0;
+
+      transform:
+        translateY(16px);
+
+      transition:
+        opacity .7s ease,
+        transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+
+      transform: none;
+    }
+
+    /* =====================================================
+       ANIMATIONS
+    ===================================================== */
+
+    @keyframes pulse {
+      0%,100% {
+        opacity: .55;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes flowLine {
+      from {
+        top: -50px;
+      }
+
+      to {
+        top: 260px;
+      }
+    }
+
+    @keyframes msg {
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+
+        transform: none;
+      }
+    }
+
+    @keyframes typing {
+      from {
+        opacity: .25;
+
+        transform:
+          translateY(1px);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(-1px);
+      }
+    }
+
+    /* =====================================================
+       TABLET
+    ===================================================== */
+
+    @media (max-width: 1050px) {
+
+      .hero-grid,
+      .case-top,
+      .section-head,
+      .bridge,
+      .contacts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        gap: 65px;
+      }
+
+      .system-card {
+        max-width: 650px;
+      }
+
+      .problem-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .result-card {
+        min-height: 250px;
+      }
+
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .demo-info {
+        display: grid;
+
+        grid-template-columns:
+          1fr 1fr;
+
+        gap:
+          0 25px;
+      }
+
+      .demo-info h3,
+      .demo-info > p,
+      .demo-integration-note,
+      .demo-reset {
+        grid-column:
+          1 / -1;
+      }
+
+      .principles {
+        grid-template-columns:
+          1fr 1fr;
+      }
+    }
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 700px) {
+
+      .container {
+        width:
+          min(
+            100% - 28px,
+            var(--container)
+          );
+      }
+
+      .nav-inner {
+        height: 68px;
+      }
+
+      .nav-links > a:not(.nav-contact) {
+        display: none;
+      }
+
+      .brand {
+        font-size: 13px;
+      }
+
+      section {
+        padding: 76px 0;
+      }
+
+      .hero {
+        padding:
+          70px 0
+          72px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size:
+          clamp(
+            45px,
+            12.5vw,
+            63px
+          );
+      }
+
+      .hero-copy-main {
+        font-size: 17px;
+      }
+
+      .hero-actions {
+        margin-top: 27px;
+      }
+
+      .button {
+        min-height: 50px;
+      }
+
+      .system-card {
+        min-height: 430px;
+
+        padding: 22px;
+      }
+
+      .section-head {
+        gap: 24px;
+
+        margin-bottom: 45px;
+      }
+
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-card {
+        min-height: 230px;
+      }
+
+      .problem-card h3 {
+        margin-top: 50px;
+      }
+
+      .case-top {
+        gap: 22px;
+      }
+
+      .case-title {
+        font-size: 57px;
+      }
+
+      .demo-info {
+        display: block;
+      }
+
+      .chat-shell {
+        min-height: 650px;
+
+        border-radius: 23px;
+      }
+
+      .messages {
+        padding:
+          18px 13px;
+      }
+
+      .message {
+        max-width: 89%;
+      }
+
+      .quick-actions {
+        max-width: 100%;
+      }
+
+      .chat-action {
+        min-height: 43px;
+      }
+
+      .process-row {
+        min-height: 155px;
+
+        grid-template-columns:
+          40px 1fr;
+      }
+
+      .process-text {
+        grid-column: 2;
+      }
+
+      .principles {
+        grid-template-columns: 1fr;
+      }
+
+      .diagnostic-box {
+        padding:
+          35px 22px;
+
+        border-radius: 28px;
+      }
+
+      .diagnostic-points {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-row {
+        grid-template-columns:
+          90px 1fr;
+      }
+
+      .footer-grid {
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      * {
+        scroll-behavior:
+          auto !important;
+
+        animation:
+          none !important;
+
+        transition:
+          none !important;
+      }
+
+      .reveal {
+        opacity: 1;
+
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="nav">
+
+  <div class="container nav-inner">
+
+    <a href="#top" class="brand">
+      <span class="brand-mark"></span>
+      AUTENRA
+    </a>
+
+    <nav class="nav-links">
+
+      <a href="#problem">
+        Задачи
+      </a>
+
+      <a href="#case">
+        Кейс
+      </a>
+
+      <a href="#process">
+        Подход
+      </a>
+
+      <a
+        href="#contacts"
+        class="nav-contact"
+      >
+        Связаться
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<main id="top">
+
+  <!-- ==================================================
+       HERO
+  =================================================== -->
+
+  <section class="hero">
+
+    <div class="container hero-grid">
+
+      <div class="reveal">
+
+        <div class="eyebrow">
+          AI Automation for Business
+        </div>
+
+        <h1>
+          Автоматизация,<br>
+          построенная вокруг<br>
+          вашего бизнеса.
+        </h1>
+
+        <p class="hero-copy-main">
+          Убираем ручную работу там,
+          где сотрудники каждый день тратят время
+          на документы, поиск информации,
+          перенос данных между системами
+          и повторяющиеся операции.
+        </p>
+
+        <p class="hero-copy-secondary">
+          Разбираем существующий процесс
+          и создаём систему, которая выполняет
+          эту работу автоматически —
+          внутри привычной инфраструктуры компании.
+        </p>
+
+        <div class="hero-actions">
+
+          <a
+            href="#diagnostic"
+            class="button primary"
+          >
+            Найти, что можно автоматизировать
+          </a>
+
+          <a
+            href="#case"
+            class="button ghost"
+          >
+            Посмотреть рабочий кейс ↓
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="system-card reveal">
+
+        <div class="system-card-head">
+
+          <span>
+            AUTENRA / AUTOMATION
+          </span>
+
+          <span class="live">
+            <i class="live-dot"></i>
+            ACTIVE
+          </span>
+
+        </div>
+
+
+        <div class="system-flow">
+
+          <div class="system-line"></div>
+
+          <div class="connector-left"></div>
+          <div class="connector-right"></div>
+
+          <div class="node n1">
+            REQUEST
+            <strong>Задача</strong>
+          </div>
+
+          <div class="node n2">
+            AUTOMATION
+            <strong>AI + Logic</strong>
+          </div>
+
+          <div class="node n3">
+            SOURCE
+            <strong>Documents</strong>
+          </div>
+
+          <div class="node n4">
+            SOURCE
+            <strong>Systems / API</strong>
+          </div>
+
+          <div class="node n5">
+            RESULT
+            <strong>Ответ / действие</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       PROBLEM
+  =================================================== -->
+
+  <section
+    id="problem"
+    class="section-border"
+  >
+
+    <div class="container">
+
+      <div class="section-label reveal">
+        Где теряется время
+      </div>
+
+      <div
+        class="problem-intro reveal"
+        style="margin-top:35px"
+      >
+        Сколько работы сотрудники
+        всё ещё делают вручную,
+        <span>
+          хотя эту работу уже может выполнять система?
+        </span>
+      </div>
+
+
+      <div class="problem-grid">
+
+        <article class="problem-card reveal">
+
+          <div class="problem-number">
+            01
+          </div>
+
+          <h3>
+            Ищут информацию
+          </h3>
+
+          <p>
+            Документы и данные приходится вручную
+            искать в нескольких сервисах,
+            папках и корпоративных системах.
+          </p>
+
+        </article>
+
+
+        <article class="problem-card reveal">
+
+          <div class="problem-number">
+            02
+          </div>
+
+          <h3>
+            Переносят данные
+          </h3>
+
+          <p>
+            Информация копируется из одной системы
+            в другую, хотя этот процесс повторяется
+            по одной и той же логике.
+          </p>
+
+        </article>
+
+
+        <article class="problem-card reveal">
+
+          <div class="problem-number">
+            03
+          </div>
+
+          <h3>
+            Собирают результат
+          </h3>
+
+          <p>
+            Для ответа руководителю сотрудник
+            открывает несколько источников,
+            сопоставляет данные
+            и вручную готовит итог.
+          </p>
+
+        </article>
+
+
+        <article class="problem-card reveal">
+
+          <div class="problem-number">
+            04
+          </div>
+
+          <h3>
+            Повторяют сценарии
+          </h3>
+
+          <p>
+            Одни и те же последовательности действий
+            выполняются снова и снова —
+            каждый день или каждую неделю.
+          </p>
+
+        </article>
+
+      </div>
+
+
+      <div class="problem-conclusion reveal">
+        Всё, что сотрудники регулярно делают
+        по одной и той же логике, —
+        кандидат на автоматизацию.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       RESULTS
+  =================================================== -->
+
+  <section class="section-border">
+
+    <div class="container">
+
+      <div class="section-head reveal">
+
+        <div class="section-label">
+          После автоматизации
+        </div>
+
+        <div>
+
+          <h2 class="section-title">
+            Что меняется для бизнеса.
+          </h2>
+
+          <p class="section-description">
+            Цель автоматизации —
+            не добавить ещё один модный инструмент,
+            а уменьшить количество действий,
+            которые человеку приходится выполнять вручную.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="result-grid">
+
+        <article class="result-card reveal">
+
+          <div class="result-index">
+            01 / LESS MANUAL WORK
+          </div>
+
+          <h3>
+            Меньше ручных операций
+          </h3>
+
+          <p>
+            Система сама получает необходимые данные,
+            работает с документами
+            и выполняет разрешённые действия.
+          </p>
+
+        </article>
+
+
+        <article class="result-card reveal">
+
+          <div class="result-index">
+            02 / ONE REQUEST
+          </div>
+
+          <h3>
+            Один запрос вместо нескольких систем
+          </h3>
+
+          <p>
+            Сотрудник формулирует задачу,
+            а автоматизация сама взаимодействует
+            с нужными источниками и сервисами.
+          </p>
+
+        </article>
+
+
+        <article class="result-card reveal">
+
+          <div class="result-index">
+            03 / STABLE PROCESS
+          </div>
+
+          <h3>
+            Быстрее и стабильнее
+          </h3>
+
+          <p>
+            Повторяющиеся операции выполняются
+            по одной логике и меньше зависят
+            от памяти и внимания конкретного сотрудника.
+          </p>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       CASE
+  =================================================== -->
+
+  <section
+    id="case"
+    class="case-section"
+  >
+
+    <div class="container">
+
+      <div class="case-top reveal">
+
+        <div class="case-number">
+          Case 01 / Working implementation
+        </div>
+
+        <div>
+
+          <h2 class="case-title">
+            AI Office
+          </h2>
+
+          <p class="case-promise">
+            Один запрос вместо цепочки
+            ручных действий.
+          </p>
+
+          <p class="case-description">
+            В этом кейсе сотруднику больше не нужно
+            самостоятельно заходить в систему документооборота,
+            искать документ, скачивать файл,
+            открывать его, проверять информацию
+            и запускать следующее действие.
+            <br><br>
+            Он формулирует задачу обычным языком —
+            AI Office самостоятельно работает
+            с подключёнными системами
+            и возвращает результат.
+          </p>
+
+          <div class="try-label">
+            Попробуйте сами ↓
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="demo-grid reveal">
+
+        <aside class="demo-info">
+
+          <h3>
+            Пройдите процесс как сотрудник
+          </h3>
+
+          <p>
+            Найдите документ,
+            получите данные,
+            сравните информацию
+            и отправьте файл на печать.
+            <br><br>
+            Так выглядит автоматизация,
+            когда AI не просто отвечает,
+            а взаимодействует
+            с рабочими системами компании.
+          </p>
+
+
+          <div class="demo-feature">
+
+            <small>
+              Задача
+            </small>
+
+            <strong>
+              Обычным языком
+            </strong>
+
+          </div>
+
+
+          <div class="demo-feature">
+
+            <small>
+              Источники
+            </small>
+
+            <strong>
+              Корпоративные системы
+            </strong>
+
+          </div>
+
+
+          <div class="demo-feature">
+
+            <small>
+              Логика
+            </small>
+
+            <strong>
+              AI + автоматизация
+            </strong>
+
+          </div>
+
+
+          <div class="demo-feature">
+
+            <small>
+              Результат
+            </small>
+
+            <strong>
+              Информация или действие
+            </strong>
+
+          </div>
+
+
+          <div class="demo-integration-note">
+            В AI Office одной из интеграций
+            является СБИС.
+            В других проектах набор систем
+            определяется процессами
+            конкретного бизнеса.
+          </div>
+
+
+          <button
+            type="button"
+            class="demo-reset"
+            id="resetDemo"
+          >
+            Перезапустить демо
+          </button>
+
+        </aside>
+
+
+        <div class="chat-shell">
+
+          <div class="chat-head">
+
+            <div class="chat-profile">
+
+              <div class="avatar">
+                AI
+              </div>
+
+              <div>
+
+                <div class="chat-name">
+                  AI Office
+                </div>
+
+                <div class="chat-status">
+                  online
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="demo-badge">
+              Interactive demo
+            </div>
+
+          </div>
+
+
+          <div
+            class="messages"
+            id="messages"
+            aria-live="polite"
+          ></div>
+
+
+          <div class="chat-input-wrap">
+
+            <form
+              class="chat-form"
+              id="chatForm"
+            >
+
+              <input
+                class="chat-input"
+                id="chatInput"
+                type="text"
+                maxlength="160"
+                autocomplete="off"
+                placeholder="Напишите команду..."
+              >
+
+              <button
+                class="send"
+                type="submit"
+                aria-label="Отправить"
+              >
+                ↑
+              </button>
+
+            </form>
+
+
+            <div class="demo-disclaimer">
+              Интерактивная симуляция
+              на основе работающей системы.
+              Все данные демонстрационные.
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       ONE EXAMPLE
+  =================================================== -->
+
+  <section class="section-border bridge-section">
+
+    <div class="container">
+
+      <div class="bridge">
+
+        <div class="section-label reveal">
+          Не только документы
+        </div>
+
+
+        <div class="reveal">
+
+          <h2>
+            AI Office —
+            только один пример.
+          </h2>
+
+          <p class="bridge-text">
+            Тот же принцип можно применить
+            к другим внутренним процессам:
+            заявкам, CRM, почте, отчётам,
+            работе с файлами,
+            учётным системам
+            или последовательностям действий
+            между несколькими сервисами.
+            <br><br>
+            <strong>
+              Мы не пытаемся продать
+              один и тот же продукт каждой компании.
+            </strong>
+            Мы используем этот подход,
+            чтобы построить автоматизацию
+            под конкретную задачу бизнеса.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       PROCESS
+  =================================================== -->
+
+  <section id="process">
+
+    <div class="container">
+
+      <div class="section-head reveal">
+
+        <div class="section-label">
+          Как работаем
+        </div>
+
+        <div>
+
+          <h2 class="section-title">
+            Сначала доказываем результат
+            на одном процессе.
+            Затем масштабируем.
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="process-list">
+
+        <div class="process-row reveal">
+
+          <div class="process-num">
+            01
+          </div>
+
+          <div class="process-name">
+            Находим дорогую ручную работу
+          </div>
+
+          <div class="process-text">
+            Разбираем процесс
+            и определяем,
+            где сотрудники тратят время
+            на повторяющиеся действия.
+          </div>
+
+        </div>
+
+
+        <div class="process-row reveal">
+
+          <div class="process-num">
+            02
+          </div>
+
+          <div class="process-name">
+            Определяем, что стоит автоматизировать
+          </div>
+
+          <div class="process-text">
+            Не каждая операция должна выполняться AI.
+            Выбираем только те части процесса,
+            где автоматизация действительно
+            даёт бизнесу пользу.
+          </div>
+
+        </div>
+
+
+        <div class="process-row reveal">
+
+          <div class="process-num">
+            03
+          </div>
+
+          <div class="process-name">
+            Создаём пилот
+          </div>
+
+          <div class="process-text">
+            Собираем рабочую версию
+            под ограниченный сценарий
+            и подключаем необходимые системы.
+          </div>
+
+        </div>
+
+
+        <div class="process-row reveal">
+
+          <div class="process-num">
+            04
+          </div>
+
+          <div class="process-name">
+            Проверяем на реальной работе
+          </div>
+
+          <div class="process-text">
+            Смотрим,
+            насколько сократилось
+            количество ручных действий,
+            время выполнения задачи
+            и участие сотрудников.
+          </div>
+
+        </div>
+
+
+        <div class="process-row reveal">
+
+          <div class="process-num">
+            05
+          </div>
+
+          <div class="process-name">
+            Масштабируем после результата
+          </div>
+
+          <div class="process-text">
+            Если пилот подтверждает пользу,
+            расширяем решение
+            на процесс, отдел
+            или другие задачи компании.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       PHILOSOPHY
+  =================================================== -->
+
+  <section class="section-border">
+
+    <div class="container">
+
+      <div class="section-label reveal">
+        AUTENRA
+      </div>
+
+
+      <div
+        class="quote reveal"
+        style="margin-top:35px"
+      >
+        AI нужен бизнесу не ради AI.
+        <span>
+          Его ценность появляется тогда,
+          когда сотруднику больше не приходится
+          выполнять лишнюю работу вручную.
+        </span>
+      </div>
+
+
+      <p
+        class="section-description reveal"
+        style="margin-top:38px"
+      >
+        Autenra создаёт системы
+        вокруг существующих процессов компании.
+        Мы подключаем AI,
+        интеграции и автоматизацию там,
+        где это сокращает количество действий человека
+        и ускоряет получение результата.
+      </p>
+
+
+      <div class="principles">
+
+        <div class="principle reveal">
+
+          <small>
+            01
+          </small>
+
+          <h3>
+            Сначала экономика процесса
+          </h3>
+
+          <p>
+            Автоматизируем не то,
+            что технологически интересно,
+            а то, что имеет практический смысл
+            для бизнеса.
+          </p>
+
+        </div>
+
+
+        <div class="principle reveal">
+
+          <small>
+            02
+          </small>
+
+          <h3>
+            Работаем с существующей инфраструктурой
+          </h3>
+
+          <p>
+            По возможности не заставляем компанию
+            менять привычные системы
+            ради новой автоматизации.
+          </p>
+
+        </div>
+
+
+        <div class="principle reveal">
+
+          <small>
+            03
+          </small>
+
+          <h3>
+            Начинаем с малого
+          </h3>
+
+          <p>
+            Один процесс
+            и один измеримый результат
+            полезнее большого внедрения
+            без подтверждённого эффекта.
+          </p>
+
+        </div>
+
+
+        <div class="principle reveal">
+
+          <small>
+            04
+          </small>
+
+          <h3>
+            AI должен выполнять работу
+          </h3>
+
+          <p>
+            Ценность системы
+            не только в ответах.
+            Она должна уметь получать данные
+            и выполнять разрешённые действия.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       DIAGNOSTIC
+  =================================================== -->
+
+  <section
+    id="diagnostic"
+    class="diagnostic"
+  >
+
+    <div class="container">
+
+      <div class="diagnostic-box reveal">
+
+        <div class="eyebrow">
+          С чего начать
+        </div>
+
+        <h2>
+          Начните с одного процесса.
+        </h2>
+
+        <p>
+          Не нужно заранее понимать,
+          какая AI-модель или технология вам нужна.
+          <br><br>
+          Выберите задачу,
+          которую сотрудники регулярно
+          выполняют вручную.
+          Мы разберём её
+          и покажем,
+          что в ней действительно
+          имеет смысл автоматизировать.
+        </p>
+
+
+        <div class="diagnostic-points">
+
+          <div class="diagnostic-point">
+            Какие действия можно убрать
+          </div>
+
+          <div class="diagnostic-point">
+            Какие системы можно связать
+          </div>
+
+          <div class="diagnostic-point">
+            Где имеет смысл использовать AI
+          </div>
+
+          <div class="diagnostic-point">
+            Есть ли экономический смысл
+          </div>
+
+        </div>
+
+
+        <div class="diagnostic-free">
+          Первичный разбор процесса — без оплаты.
+        </div>
+
+
+        <div class="hero-actions">
+
+          <a
+            class="button primary"
+            href="https://t.me/ruslan_mstr"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Разобрать мой процесс →
+          </a>
+
+          <a
+            class="button ghost"
+            href="tel:+79250332493"
+          >
+            +7 925 033-24-93
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================================
+       CONTACTS
+  =================================================== -->
+
+  <section
+    id="contacts"
+    class="section-border"
+  >
+
+    <div class="container">
+
+      <div class="section-head reveal">
+
+        <div class="section-label">
+          Контакты
+        </div>
+
+        <div>
+
+          <h2 class="section-title">
+            Расскажите,
+            что в вашей компании
+            делают вручную.
+          </h2>
+
+          <p class="section-description">
+            Даже если вы пока не знаете,
+            как именно это автоматизировать —
+            это нормально.
+            Начнём с самого процесса.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="contacts-grid reveal">
+
+        <div>
+
+          <div class="contact-person">
+            Руслан Шишханов
+          </div>
+
+          <p class="section-description">
+            Autenra
+          </p>
+
+        </div>
+
+
+        <div class="contact-list">
+
+          <div class="contact-row">
+
+            <span>
+              Телефон
+            </span>
+
+            <a href="tel:+79250332493">
+              +7 925 033-24-93
+            </a>
+
+          </div>
+
+
+          <div class="contact-row">
+
+            <span>
+              Telegram
+            </span>
+
+            <a
+              href="https://t.me/ruslan_mstr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @ruslan_mstr
+            </a>
+
+          </div>
+
+
+          <div class="contact-row">
+
+            <span>
+              Email
+            </span>
+
+            <a
+              href="mailto:ruslanshishkhanov@yandex.ru"
+            >
+              ruslanshishkhanov@yandex.ru
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <div class="container footer-grid">
+
+    <div class="brand">
+      <span class="brand-mark"></span>
+      AUTENRA
+    </div>
+
+    <div>
+      AI Automation for Business
+    </div>
+
+    <div>
+      © 2026 Autenra
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+(() => {
+
+  const messages =
+    document.getElementById("messages");
+
+  const form =
+    document.getElementById("chatForm");
+
+  const input =
+    document.getElementById("chatInput");
+
+  const resetButton =
+    document.getElementById("resetDemo");
+
+
+  let busy = false;
+
+  let printState = {
+    copies: null,
+    duplex: null,
+    color: null
+  };
+
+
+  const sleep = ms =>
+    new Promise(resolve =>
+      setTimeout(resolve, ms)
+    );
+
+
+  function scrollChat() {
+
+    messages.scrollTop =
+      messages.scrollHeight;
+
+  }
+
+
+  function escapeHtml(text) {
+
+    const element =
+      document.createElement("div");
+
+    element.textContent = text;
+
+    return element.innerHTML;
+
+  }
+
+
+  function createMessage(
+    side,
+    html
+  ) {
+
+    const element =
+      document.createElement("div");
+
+    element.className =
+      "message " + side;
+
+    element.innerHTML =
+      html;
+
+    messages.appendChild(
+      element
+    );
+
+    scrollChat();
+
+    return element;
+
+  }
+
+
+  function userMessage(text) {
+
+    return createMessage(
+      "user",
+      escapeHtml(text)
+    );
+
+  }
+
+
+  function botMessage(html) {
+
+    return createMessage(
+      "bot",
+      html
+    );
+
+  }
+
+
+  function systemMessage(text) {
+
+    return createMessage(
+      "system",
+      escapeHtml(text)
+    );
+
+  }
+
+
+  function typing() {
+
+    const bubble =
+      document.createElement("div");
+
+    bubble.className =
+      "message bot typing-bubble";
+
+    bubble.innerHTML =
+      '<span class="typing">' +
+      '<i></i><i></i><i></i>' +
+      '</span>';
+
+    messages.appendChild(
+      bubble
+    );
+
+    scrollChat();
+
+    return bubble;
+
+  }
+
+
+  async function botReply(
+    html,
+    delay = 520
+  ) {
+
+    const bubble =
+      typing();
+
+    await sleep(delay);
+
+    bubble.remove();
+
+    botMessage(html);
+
+  }
+
+
+  function actions(items) {
+
+    const wrapper =
+      document.createElement("div");
+
+    wrapper.className =
+      "quick-actions";
+
+
+    items.forEach(item => {
+
+      const button =
+        document.createElement("button");
+
+      button.type =
+        "button";
+
+      button.className =
+        "chat-action";
+
+      button.textContent =
+        item.label;
+
+      button.dataset.action =
+        item.action;
+
+
+      if (
+        item.value !== undefined
+      ) {
+
+        button.dataset.value =
+          item.value;
+
+      }
+
+
+      wrapper.appendChild(
+        button
+      );
+
+    });
+
+
+    messages.appendChild(
+      wrapper
+    );
+
+    scrollChat();
+
+  }
+
+
+  function documentCard() {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "doc-card";
+
+    card.innerHTML = `
+      <div class="doc-top">
+
+        <div>
+
+          <div class="doc-title">
+            Акт оказанных услуг № 09-184
+          </div>
+
+          <div class="doc-meta">
+            МОЭК · сентябрь 2026 · PDF
+          </div>
+
+        </div>
+
+        <div class="pdf-icon">
+          PDF
+        </div>
+
+      </div>
+
+      <div class="doc-actions">
+
+        <button
+          type="button"
+          class="chat-action"
+          data-action="analyze"
+        >
+          Анализировать
+        </button>
+
+        <button
+          type="button"
+          class="chat-action"
+          data-action="print"
+        >
+          Распечатать
+        </button>
+
+      </div>
+    `;
+
+
+    messages.appendChild(
+      card
+    );
+
+    scrollChat();
+
+  }
+
+
+  function analysisCard() {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "analysis-card";
+
+    card.innerHTML = `
+      <div class="analysis-row">
+        <span>Контрагент</span>
+        <strong>МОЭК</strong>
+      </div>
+
+      <div class="analysis-row">
+        <span>Документ</span>
+        <strong>Акт оказанных услуг</strong>
+      </div>
+
+      <div class="analysis-row">
+        <span>Период</span>
+        <strong>Сентябрь 2026</strong>
+      </div>
+
+      <div class="analysis-row">
+        <span>К оплате</span>
+        <strong>148 320 ₽</strong>
+      </div>
+    `;
+
+
+    messages.appendChild(
+      card
+    );
+
+    scrollChat();
+
+  }
+
+
+  function successCard() {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "success-card";
+
+
+    const duplexText =
+      printState.duplex === "duplex"
+        ? "двусторонняя"
+        : "односторонняя";
+
+
+    const colorText =
+      printState.color === "mono"
+        ? "чёрно-белая"
+        : "цветная";
+
+
+    card.innerHTML = `
+      <div class="success-title">
+        ✓ Задание отправлено
+      </div>
+
+      <div class="success-meta">
+
+        Копий:
+        <strong>${printState.copies}</strong><br>
+
+        Режим:
+        <strong>${duplexText}</strong><br>
+
+        Цвет:
+        <strong>${colorText}</strong>
+
+      </div>
+    `;
+
+
+    messages.appendChild(
+      card
+    );
+
+    scrollChat();
+
+  }
+
+
+  async function welcome() {
+
+    messages.innerHTML = "";
+
+    printState = {
+      copies: null,
+      duplex: null,
+      color: null
+    };
+
+    busy = true;
+
+
+    await botReply(
+      "Это интерактивная демонстрация " +
+      "<strong>AI Office</strong>.<br><br>" +
+      "Попробуйте поставить мне задачу."
+    );
+
+
+    actions([
+      {
+        label:
+          "Найти документы",
+        action:
+          "search"
+      },
+      {
+        label:
+          "Проверить счёт",
+        action:
+          "analyze"
+      },
+      {
+        label:
+          "Распечатать файл",
+        action:
+          "print"
+      },
+      {
+        label:
+          "🎙 Голосовой запрос",
+        action:
+          "voice"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function searchFlow() {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    userMessage(
+      "Найди документы от МОЭК за сентябрь"
+    );
+
+
+    await botReply(
+      "Нашёл <strong>4 документа</strong> " +
+      "за сентябрь.<br><br>" +
+
+      "01 · Счёт за тепловую энергию<br>" +
+      "02 · Акт оказанных услуг<br>" +
+      "03 · Счёт-фактура<br>" +
+      "04 · Корректировочный документ"
+    );
+
+
+    actions([
+      {
+        label:
+          "Открыть №1",
+        action:
+          "doc1"
+      },
+      {
+        label:
+          "Открыть №2",
+        action:
+          "doc2"
+      },
+      {
+        label:
+          "Искать внутри",
+        action:
+          "inside"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function openDocument(
+    number = 2
+  ) {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    userMessage(
+      number === 1
+        ? "Открой первый документ"
+        : "Открой второй документ"
+    );
+
+
+    await botReply(
+      "Открываю документ."
+    );
+
+
+    documentCard();
+
+
+    busy = false;
+
+  }
+
+
+  async function analyzeFlow() {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    userMessage(
+      "Сколько здесь к оплате?"
+    );
+
+
+    await botReply(
+      "Извлёк основные данные " +
+      "из документа."
+    );
+
+
+    analysisCard();
+
+
+    actions([
+      {
+        label:
+          "Сравнить с августом",
+        action:
+          "compare"
+      },
+      {
+        label:
+          "Распечатать",
+        action:
+          "print"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function compareFlow() {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    userMessage(
+      "Сравни с августом"
+    );
+
+
+    await botReply(
+      "Август: <strong>132 500 ₽</strong><br>" +
+      "Сентябрь: <strong>148 320 ₽</strong><br><br>" +
+
+      "Изменение: <strong>+15 820 ₽</strong><br><br>" +
+
+      "Основное отличие — увеличение " +
+      "начисленной суммы."
+    );
+
+
+    actions([
+      {
+        label:
+          "Распечатать документ",
+        action:
+          "print"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function insideSearch() {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    userMessage(
+      "Найди, где упоминается перерасчёт"
+    );
+
+
+    await botReply(
+      "Нашёл упоминание " +
+      "в документе №4.<br><br>" +
+
+      "Фрагмент относится " +
+      "к корректировке начислений " +
+      "за предыдущий период."
+    );
+
+
+    busy = false;
+
+  }
+
+
+  async function printFlow() {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    printState = {
+      copies: null,
+      duplex: null,
+      color: null
+    };
+
+
+    userMessage(
+      "Распечатай этот документ"
+    );
+
+
+    await botReply(
+      "Сколько копий?"
+    );
+
+
+    actions([
+      {
+        label: "1",
+        action: "copies",
+        value: "1"
+      },
+      {
+        label: "2",
+        action: "copies",
+        value: "2"
+      },
+      {
+        label: "3",
+        action: "copies",
+        value: "3"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function copiesSelected(value) {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    printState.copies =
+      Number(value);
+
+
+    userMessage(
+      value === "1"
+        ? "1 копия"
+        : value + " копии"
+    );
+
+
+    await botReply(
+      "Выберите режим печати."
+    );
+
+
+    actions([
+      {
+        label:
+          "Односторонняя",
+        action:
+          "duplex",
+        value:
+          "simplex"
+      },
+      {
+        label:
+          "Двусторонняя",
+        action:
+          "duplex",
+        value:
+          "duplex"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function duplexSelected(value) {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    printState.duplex =
+      value;
+
+
+    userMessage(
+      value === "duplex"
+        ? "Двусторонняя"
+        : "Односторонняя"
+    );
+
+
+    await botReply(
+      "Цвет печати?"
+    );
+
+
+    actions([
+      {
+        label:
+          "Цветная",
+        action:
+          "color",
+        value:
+          "color"
+      },
+      {
+        label:
+          "Чёрно-белая",
+        action:
+          "color",
+        value:
+          "mono"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function colorSelected(value) {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    printState.color =
+      value;
+
+
+    userMessage(
+      value === "mono"
+        ? "Чёрно-белая"
+        : "Цветная"
+    );
+
+
+    systemMessage(
+      "Подготавливаю документ..."
+    );
+
+    await sleep(500);
+
+
+    systemMessage(
+      "Отправляю на принтер..."
+    );
+
+    await sleep(750);
+
+
+    successCard();
+
+
+    actions([
+      {
+        label:
+          "Начать заново",
+        action:
+          "reset"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function voiceFlow() {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    userMessage(
+      "▶︎ 0:07  ▬▬▬▬▬▬▬"
+    );
+
+
+    await botReply(
+      "Распознанный запрос:<br><br>" +
+      "«Найди документы по объекту за август»"
+    );
+
+
+    await botReply(
+      "Нашёл документы " +
+      "за выбранный период.<br><br>" +
+
+      "Могу показать список, " +
+      "отправить PDF " +
+      "или выполнить поиск " +
+      "внутри содержимого."
+    );
+
+
+    actions([
+      {
+        label:
+          "Показать документы",
+        action:
+          "voiceDocuments"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function voiceDocumentsFlow() {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    userMessage(
+      "Покажи документы"
+    );
+
+
+    await botReply(
+      "Нашёл документы по объекту " +
+      "за август.<br><br>" +
+
+      "01 · Акт выполненных работ<br>" +
+      "02 · Счёт за обслуживание<br>" +
+      "03 · Счёт-фактура"
+    );
+
+
+    actions([
+      {
+        label:
+          "Открыть документ",
+        action:
+          "doc2"
+      }
+    ]);
+
+
+    busy = false;
+
+  }
+
+
+  async function unknownCommand(text) {
+
+    if (busy) return;
+
+    busy = true;
+
+
+    userMessage(text);
+
+
+    await botReply(
+      "В этой демонстрации " +
+      "попробуйте написать:<br><br>" +
+
+      "• найди документы<br>" +
+      "• сколько к оплате<br>" +
+      "• сравни документы<br>" +
+      "• распечатай документ"
+    );
+
+
+    busy = false;
+
+  }
+
+
+  async function handleText(value) {
+
+    const text =
+      value
+        .trim()
+        .toLowerCase();
+
+
+    if (!text) {
+      return;
+    }
+
+
+    if (
+      text.includes("печат") ||
+      text.includes("распечат")
+    ) {
+
+      await printFlow();
+      return;
+
+    }
+
+
+    if (
+      text.includes("срав")
+    ) {
+
+      await compareFlow();
+      return;
+
+    }
+
+
+    if (
+      text.includes("оплат") ||
+      text.includes("сумм") ||
+      text.includes("счёт") ||
+      text.includes("счет")
+    ) {
+
+      await analyzeFlow();
+      return;
+
+    }
+
+
+    if (
+      text.includes("голос")
+    ) {
+
+      await voiceFlow();
+      return;
+
+    }
+
+
+    if (
+      text.includes("найди") ||
+      text.includes("документ")
+    ) {
+
+      await searchFlow();
+      return;
+
+    }
+
+
+    await unknownCommand(
+      value
+    );
+
+  }
+
+
+  messages.addEventListener(
+    "click",
+    async event => {
+
+      const button =
+        event.target.closest(
+          "[data-action]"
+        );
+
+
+      if (!button) {
+        return;
+      }
+
+
+      const action =
+        button.dataset.action;
+
+      const value =
+        button.dataset.value;
+
+
+      if (action === "search") {
+
+        await searchFlow();
+
+      }
+
+      else if (action === "doc1") {
+
+        await openDocument(1);
+
+      }
+
+      else if (action === "doc2") {
+
+        await openDocument(2);
+
+      }
+
+      else if (action === "inside") {
+
+        await insideSearch();
+
+      }
+
+      else if (action === "analyze") {
+
+        await analyzeFlow();
+
+      }
+
+      else if (action === "compare") {
+
+        await compareFlow();
+
+      }
+
+      else if (action === "print") {
+
+        await printFlow();
+
+      }
+
+      else if (action === "copies") {
+
+        await copiesSelected(
+          value
+        );
+
+      }
+
+      else if (action === "duplex") {
+
+        await duplexSelected(
+          value
+        );
+
+      }
+
+      else if (action === "color") {
+
+        await colorSelected(
+          value
+        );
+
+      }
+
+      else if (action === "voice") {
+
+        await voiceFlow();
+
+      }
+
+      else if (action === "voiceDocuments") {
+
+        await voiceDocumentsFlow();
+
+      }
+
+      else if (action === "reset") {
+
+        await welcome();
+
+      }
+
+    }
+  );
+
+
+  form.addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      if (busy) {
+        return;
+      }
+
+
+      const value =
+        input.value;
+
+
+      if (!value.trim()) {
+        return;
+      }
+
+
+      input.value = "";
+
+
+      await handleText(
+        value
+      );
+
+    }
+  );
+
+
+  resetButton.addEventListener(
+    "click",
+    async () => {
+
+      await welcome();
+
+    }
+  );
+
+
+  const revealItems =
+    document.querySelectorAll(
+      ".reveal"
+    );
+
+
+  if (
+    "IntersectionObserver" in window
+  ) {
+
+    const observer =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target
+                  .classList
+                  .add("visible");
+
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: .10
+        }
+      );
+
+
+    revealItems.forEach(
+      item =>
+        observer.observe(item)
+    );
+
+  }
+
+  else {
+
+    revealItems.forEach(
+      item =>
+        item.classList.add(
+          "visible"
+        )
+    );
+
+  }
+
+
+  welcome();
+
+})();
+</script>
+
+</body>
+</html>
